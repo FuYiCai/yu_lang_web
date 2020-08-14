@@ -1,0 +1,18 @@
+body {
+	background-color: #FFFFFF;
+	font-size: 28rpx;
+	color: #333333;
+	font-family: Helvetica Neue, Helvetica, sans-serif;
+}
+
+view,
+scroll-view,
+swiper,
+button,
+input,
+textarea,
+label,
+navigator,
+image {
+	box-sizing: border-box;
+}
