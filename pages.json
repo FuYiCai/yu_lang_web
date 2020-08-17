@@ -6,7 +6,11 @@
 				
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/introduceDetail/introduceDetail",
+            "style" : {}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "贵州驭浪科技有限公司",

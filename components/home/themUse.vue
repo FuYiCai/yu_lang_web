@@ -14,12 +14,21 @@
 </script>
 
 <style>
+
+	
 .zwyShake {
+	background-image: -webkit-linear-gradient(left, #f60, #DD524D 25%, #3499cd 50%, #DD524D 75%, red);
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+	-webkit-background-size: 200% 100%;
+	font-weight: bold;
+	
 	transform-origin: center bottom;
 	animation: zwyShake 2s 0.5s ease-out infinite;
 }
 @keyframes zwyShake {
 	0% {
+		background-position: 0 0;
 		transform: rotate(0deg);
 		transition-timing-function: cubic-bezier(0.215, .61, .355, 1);
 	}
@@ -70,6 +79,7 @@
 	}
 
 	100% {
+		background-position: -100% 0;
 		transform: rotate(0deg);
 		transition-timing-function: cubic-bezier(0.215, .61, .355, 1);
 	}

@@ -2,7 +2,6 @@
 	<view class="py-3 px-2 footer-bg text-center">
 		<view class="flex justify-between align-center mb-2">
 			<view class="footer-item py-1 px-3 rounded"
-			hover-class="bg-danger"
 			v-for="item in footerText" :key="item"	>
 			{{item}}
 			</view>
