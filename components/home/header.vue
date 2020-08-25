@@ -1,9 +1,8 @@
 <template>
 	<view>
-		<view class="bg-white border-bottom">
+		<view class="bg-white border-bottom animate__animated animate__fadeInDown">
 			<view class="w-100 flex justify-between align-center p-2">
-				<text v-for="item in headTitle"
-				 :key="item"
+				<text v-for="item in headTitle"	 :key="item"
 				 @click="headerFn(item)" class="iconfont"> {{item}} </text>
 			</view>
 		</view>
@@ -25,11 +24,21 @@
 	const commomText = {
 		introduce:'公司介绍',
 		business:'业务类型'
-	}
+	};
+	
+	
 	import uniPopup from '@/components/uni-popup/uni-popup.vue';
 	export default {
-		components:{
-			uniPopup
+		components:{uniPopup },
+		props:{
+			companyMsg:{
+				type:Array,
+				required:true
+			},
+			companyWork:{
+				type:Array,
+				required:true
+			}
 		},
 		data() {
 			return {
@@ -38,17 +47,8 @@
 					`${commomText.introduce} \ue7a8`,
 					`${commomText.business} \ue7a8`
 				],
-				companyMsg:[
-					{text:'企业愿景',prop:'',child:''},{text:'发展规划',prop:'',child:''},
-					{text:'福利待遇',prop:'',child:''},{text:'团队风采',prop:'',child:''},
-					{text:'活动',prop:'',child:''},
-				],
-				companyWork:[
-					{text:'小程序',prop:'',child:[]},{text:'网站',prop:'',child:''},
-					{text:'app',prop:'',child:''},{text:'系统',prop:'',child:''},
-					{text:'其它',prop:'',child:''},
-				],
-				titleDataHint:'companyMsg'
+				titleDataHint:'companyMsg',
+				isClickBusType:false,//是否点击业务类型
 			}
 		},
 		computed:{
@@ -69,13 +69,21 @@
 					[`${commomText.business}`,'companyWork'],
 				]) ;
 				if(data.get(text)){
+					console.log(text,'*****');
+					text === '业务类型' ? this.isClickBusType = true :  this.isClickBusType = false;
+					
 					this.titleDataHint = data.get(text) ;
 					this.$refs.popup.open()
 				}
 				
 			},
-			headerItemFn(){
+			headerItemFn(item){
 				this.$refs.popup.close()
+				if(this.isClickBusType){
+					return uni.navigateTo({
+						url:'/pages/businessType/businessType'
+					})
+				}
 				uni.navigateTo({
 					url:'/pages/introduceDetail/introduceDetail'
 				})

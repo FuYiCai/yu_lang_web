@@ -2,11 +2,15 @@
 	<view>
 	
 		<view style="font-size:0;">
-			<video class="w-100"
-			 poster="https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=290338037,444452807&fm=26&gp=0.jpg"></video>
+			<video class="w-100 animate__animated animate__slideInDown"
+			 objectFit="cover"
+			 :danmu-list="danmu"
+			 enable-danmu="true"
+			 :poster="poster">
+			 </video>
 			 
 			<image 
-			class="w-100"
+			class="w-100 animate__animated animate__slideInUp"
 			 v-for="(item,index) in swiperList" :key="index"
 			 :src="item.url" mode="aspectFill"
 			  @click="lookImg(item.url)"
@@ -24,7 +28,10 @@
 	export default {
 		data() {
 			return {
-				dotStyle: true,
+				danmu:[	{text:'驭浪科技美女多'},{text:'驭浪科技6666666'},
+					{text:'驭浪科技老板好'},
+					{text:'待遇兴义最好'},],
+				poster:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3004385117,3491212726&fm=26&gp=0.jpg',
 				swiperList: [{
 					id: 0,
 					type: 'image',
@@ -46,6 +53,7 @@
 					type: 'image',
 					url: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2706478818,1096892819&fm=26&gp=0.jpg'
 				},],
+				dotStyle: true,
 			}
 		},
 		onLoad() {

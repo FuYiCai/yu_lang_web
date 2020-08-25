@@ -1,31 +1,47 @@
 <template>
-	<view class="">
-		<view class="p-2">成长经历</view>
-		<view class="flex">
-							<image class="flex-1" src="https://cdn2.weimob.com/saas/@assets/saas-fe-www-web-stc/img/nweb/topic/xcx/3-2@2x.png?20200426" mode=""></image>
-			<text space="ensp" class="flex-1 pl-2 font-small flex-shrink">
-				强大的移动商城
-				
-				助力搭建小程序+公众号移动商城
-				
-				百余种促销玩法
-				
-				直播、拼团、砍价、周期购、发券宝有效促进转化
-				
-				完善客户SCRM管理
-				
-				数字化会员管理体系，让您的客户二次复购变得简单
-				
-				裂变分销拓展销售渠道
-				
-				让您的顾客带来更多顾客，帮您实现销量裂变式增长
+	<view>
+		<view class="px-2 h3 animate__animated animate__rotateInUpLeft">成长经历</view>
+		<view class="flex px-2">
+			<image @click="open" class="flex-1 animate__animated animate__lightSpeedInLeft" :src="itemData.url" mode="aspectFill"></image>
+			<text space="ensp" class="flex-1 pl-2 font-small flex-shrink animate__animated animate__lightSpeedInRight">
+				{{itemData.text}}
 			</text>
-	
 		</view>
+		<uni-popup ref="popup">
+			<video class="rounded" autoplay enable-danmu  objectFit="fill"
+			 :src="video" :danmu-list="danmu" ></video>
+		</uni-popup>
 	</view>
 </template>
 
 <script>
+	import uniPopup from '@/components/uni-popup/uni-popup.vue';
+	import mp4 from '@/static/man.mp4';
+	export default {
+		components:{
+			uniPopup
+		},
+		props:{
+			itemData:{
+				type:Object,
+				required:true
+			}
+		},
+		data() {
+			return {
+				video: mp4,
+				danmu:[
+					{text:'驭浪科技美女多'},{text:'驭浪科技6666666'},
+					{text:'驭浪科技老板好'},	{text:'待遇兴义最好'},
+				]
+			}
+		},
+		methods: {
+			open() {
+				this.$refs.popup.open() ;
+			}
+		},
+	}
 </script>
 
 <style>

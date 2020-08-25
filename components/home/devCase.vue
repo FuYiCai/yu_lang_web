@@ -1,27 +1,13 @@
 <template>
-	<view class="">
-		<view class="p-2">开发案例</view>
+	<view class="pb-2 border-bottom">
+		<view class="p-2 h3 animate__animated animate__backInLeft">开发案例</view>
 		<view class="flex">
-			<text space="ensp" class="flex-1 pl-2 font-small flex-shrink">
-				强大的移动商城
-				
-				助力搭建小程序+公众号移动商城
-				
-				百余种促销玩法
-				
-				直播、拼团、砍价、周期购、发券宝有效促进转化
-				
-				完善客户SCRM管理
-				
-				数字化会员管理体系，让您的客户二次复购变得简单
-				
-				裂变分销拓展销售渠道
-				
-				让您的顾客带来更多顾客，帮您实现销量裂变式增长
-			</text>
-			<image
-			 @click="openPop"
-			 class="flex-1" src="https://cdn2.weimob.com/saas/@assets/saas-fe-www-web-stc/img/nweb/topic/xcx/3-2@2x.png?20200426" mode="aspectFit"></image>
+			<view class="flex-1 pl-2 animate__animated animate__backInLeft">
+				<text space="ensp" class="font-small">
+					{{itemData.text}}
+				</text>
+			</view>
+			<image	 @click="openPop" class="flex-1 flex-shrink animate__animated animate__backInRight" :src="itemData.url" mode="aspectFit"></image>
 			<uni-popup ref="popup">
 				<view style="height: 420rpx;width: 100vw;" class="tower-swiper" @touchmove="TowerMove" @touchstart="TowerStart" @touchend="TowerEnd">
 					<view class="tower-item" :class="item.zIndex==1?'none':''" v-for="(item,index) in swiperList" :key="index" :style="[{'--index': item.zIndex,'--left':item.mLeft}]" :data-direction="direction">
@@ -39,8 +25,12 @@
 <script>
 	import uniPopup from '@/components/uni-popup/uni-popup.vue';
 	export default {
-		components:{
-			uniPopup
+		components:{uniPopup	},
+		props:{
+			itemData:{
+				type:Object,
+				required:true
+			}
 		},
 		data() {
 			return {

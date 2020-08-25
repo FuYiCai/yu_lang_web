@@ -10,6 +10,10 @@
             "path" : "pages/introduceDetail/introduceDetail",
             "style" : {}
         }
+        ,{
+            "path" : "pages/businessType/businessType",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

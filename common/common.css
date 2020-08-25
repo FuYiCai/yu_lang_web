@@ -45,7 +45,7 @@
 .col-7 { width: 437.5rpx; }
 .col-6 { width: 375rpx; }
 .col-5 { width: 312.5rpx;}
-/* .col-4 {width: 250rpx;} */
+.col-4 {width: 250rpx;} 
 .col-3 {width: 187.5rpx;}
 .col-2 {width: 125rpx;}
 .col-1 {width: 62.5rpx;}
@@ -80,6 +80,7 @@
 .justify-start{justify-content:flex-start;}
 .justify-end{justify-content:flex-end;}
 .justify-between{justify-content:space-between;}
+.justify-around{justify-content:space-around;}
 .justify-center{justify-content:center;}
 .align-center{ align-items: center; }
 .align-stretch{ align-items: stretch; }

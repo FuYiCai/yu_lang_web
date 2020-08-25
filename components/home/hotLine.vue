@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="p-2">报名热线</view>
+		<view class="py-3 px-2 d-inline-block zwyShake">报名热线</view>
 		<view  class="px-2">
 			<form @submit="formSubmit" @reset="formReset">
 				<view class="flex align-center py-1 mb-3 border-bottom">
@@ -59,14 +59,14 @@
 		},
 		methods: {
 			formSubmit (e) {
-				const formdata = e.detail.value;
-				console.log('form发生了submit事件，携带数据为：', formdata)
-				if(regPhone.test(formdata.phone)){
-					uni.showToast({	title:'请输入正确的手机号码',icon:'none'	})
+				const {companyName,name,phone,site} = e.detail.value ;
+				if(regPhone.test(phone)){
+					return	uni.showToast({	title:'请输入正确的手机号码',icon:'none'	})
 				}
-				else{
-					uni.showToast({	title:'ok'})
-				}
+				uni.showToast({	title:'提交中',mask:true,icon:'none'});
+				this.$H.post().then(res =>{
+					console.log(res)
+				})
 			},
 			onConfirm(res){
 				this.result=res;
@@ -80,4 +80,73 @@
 </script>
 
 <style>
+	.zwyShake {
+		background-image: -webkit-linear-gradient(left, #f60, #DD524D 25%, #3499cd 50%, #DD524D 75%, red);
+		-webkit-text-fill-color: transparent;
+		-webkit-background-clip: text;
+		-webkit-background-size: 200% 100%;
+		font-weight: bold;
+		
+		transform-origin: center bottom;
+		animation: zwyShake 2s 0.5s ease-out infinite;
+	}
+	@keyframes zwyShake {
+		0% {
+			background-position: 0 0;
+			transform: rotate(0deg);
+			transition-timing-function: cubic-bezier(0.215, .61, .355, 1);
+		}
+	
+		10% {
+			transform: rotate(-12deg);
+			transition-timing-function: cubic-bezier(0.215, .61, .355, 1);
+		}
+	
+		20% {
+			transform: rotate(12deg);
+			transition-timing-function: cubic-bezier(0.215, .61, .355, 1);
+		}
+	
+		28% {
+			transform: rotate(-10deg);
+			transition-timing-function: cubic-bezier(0.215, .61, .355, 1);
+		}
+	
+		36% {
+			transform: rotate(10deg);
+			transition-timing-function: cubic-bezier(0.755, .5, .855, .06);
+		}
+	
+		42% {
+			transform: rotate(-8deg);
+			transition-timing-function: cubic-bezier(0.755, .5, .855, .06);
+		}
+	
+		48% {
+			transform: rotate(8deg);
+			transition-timing-function: cubic-bezier(0.755, .5, .855, .06);
+		}
+	
+		52% {
+			transform: rotate(-4deg);
+			transition-timing-function: cubic-bezier(0.755, .5, .855, .06);
+		}
+	
+		56% {
+			transform: rotate(4deg);
+			transition-timing-function: cubic-bezier(0.755, .5, .855, .06);
+		}
+	
+		60% {
+			transform: rotate(0deg);
+			transition-timing-function: cubic-bezier(0.755, .5, .855, .06);
+		}
+	
+		100% {
+			background-position: -100% 0;
+			transform: rotate(0deg);
+			transition-timing-function: cubic-bezier(0.215, .61, .355, 1);
+		}
+	}
+	
 </style>

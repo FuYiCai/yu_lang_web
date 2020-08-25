@@ -1,0 +1,11 @@
+{
+  "name": "oweb",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/FuYiCai/yu_lang_web.git",
+  "author": "新-岸 <1400330380@qq.com>",
+  "license": "MIT",
+  "dependencies": {
+    "animate.css": "^4.1.0"
+  }
+}

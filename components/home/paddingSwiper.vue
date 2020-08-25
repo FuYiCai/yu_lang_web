@@ -1,23 +1,20 @@
 <template>
-	<swiper autoplay circular
-	 style="height: 420rpx;"
-	 class="border-bottom bg-secondary">
-		<swiper-item class="swiper-item">
-			<image src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2049349271,1991800259&fm=26&gp=0.jpg" ></image>
-		</swiper-item>
-		<swiper-item class="swiper-item">
-			<image src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3778126105,3499044640&fm=26&gp=0.jpg" ></image>
-		</swiper-item>
-		<swiper-item class="swiper-item">
-			<image src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2049349271,1991800259&fm=26&gp=0.jpg" ></image>
-		</swiper-item>
-		<swiper-item class="swiper-item">
-			<image src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3778126105,3499044640&fm=26&gp=0.jpg" ></image>
+	<swiper autoplay circular style="height: 420rpx;" class="border-bottom bg-hover-light animate__animated animate__fadeInUp">
+		<swiper-item class="swiper-item" v-for="(item,index) in initArr" :key="index">
+			<image :src="item.url" ></image>
 		</swiper-item>
 	</swiper>
 </template>
 
 <script>
+	export default {
+		props:{
+			initArr:{
+				type:Array,
+				required:true
+			}
+		}
+	}
 </script>
 
 <style lang="less">
