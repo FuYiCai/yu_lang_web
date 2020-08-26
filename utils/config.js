@@ -1,4 +1,4 @@
-let _url = 'https://www.gzapxg.com/api/';
+let _url = '/api';
 
 
 export default  {

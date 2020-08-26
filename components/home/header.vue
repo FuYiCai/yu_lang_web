@@ -61,6 +61,11 @@
 				return data.get(me.titleDataHint) ? data.get(me.titleDataHint) : [] ;
 			}
 		},
+		mounted() {
+			this.$H.post('home/treeselect').then(res =>{
+				console.log('获取菜单下拉树列表',res);
+			})
+		},
 		methods: {
 			headerFn(item='abc'){
 				const [text] = item.split(' ');

@@ -51,7 +51,7 @@
 <style>
 .wrap{
 	height: 100vh;
-	background-color: rgba(51,51,51,0.8);
+	background-color: rgba(89,8,89,0.8);
 }
 .w33{width: 33.333%;}
 .h100{height: 100rpx;}

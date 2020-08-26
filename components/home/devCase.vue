@@ -9,7 +9,7 @@
 			</view>
 			<image	 @click="openPop" class="flex-1 flex-shrink animate__animated animate__backInRight" :src="itemData.url" mode="aspectFit"></image>
 			<uni-popup ref="popup">
-				<view style="height: 420rpx;width: 100vw;" class="tower-swiper" @touchmove="TowerMove" @touchstart="TowerStart" @touchend="TowerEnd">
+				<view style="height: 620rpx;width: 100vw;" class="tower-swiper" @touchmove="TowerMove" @touchstart="TowerStart" @touchend="TowerEnd">
 					<view class="tower-item" :class="item.zIndex==1?'none':''" v-for="(item,index) in swiperList" :key="index" :style="[{'--index': item.zIndex,'--left':item.mLeft}]" :data-direction="direction">
 						<view class="swiper-item">
 							<image :src="item.url" mode="aspectFill" v-if="item.type=='image'"></image>
@@ -125,7 +125,7 @@
 <style>
 
 .tower-swiper {
-	height: 420rpx;
+	height: 620rpx;
 	position: relative;
 	max-width: 750rpx;
 	overflow: hidden;
@@ -133,8 +133,8 @@
 
 .tower-swiper .tower-item {
 	position: absolute;
-	width: 300rpx;
-	height: 380rpx;
+	width: 349rpx;
+	height: 680rpx;
 	top: 0;
 	bottom: 0;
 	left: 50%;
@@ -156,7 +156,7 @@
 
 .tower-swiper .tower-item {
 	transform: scale(calc(0.5 + var(--index) / 10));
-	margin-left: calc(var(--left) * 100rpx - 150rpx);
+	margin-left: calc(var(--left) * 100rpx - 180rpx);
 	z-index: var(--index);
 }
 </style>

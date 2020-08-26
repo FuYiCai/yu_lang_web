@@ -60,7 +60,8 @@
 		methods: {
 			formSubmit (e) {
 				const {companyName,name,phone,site} = e.detail.value ;
-				if(regPhone.test(phone)){
+				console.log(regPhone.test(phone));
+				if(!regPhone.test(phone)){
 					return	uni.showToast({	title:'请输入正确的手机号码',icon:'none'	})
 				}
 				uni.showToast({	title:'提交中',mask:true,icon:'none'});

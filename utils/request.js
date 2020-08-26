@@ -19,7 +19,11 @@ const request = (options = {}) => {
 			uni.request({
 				...options,
 				success(result) {
-					return	res(result)
+					const {data,code,msg} = result.data;
+					if(code === 200){
+						return	res(data)
+					}
+					return rej(msg)
 				},
 				fail(error) {
 					return rej(error)

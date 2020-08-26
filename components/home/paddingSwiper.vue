@@ -1,5 +1,5 @@
 <template>
-	<swiper autoplay circular style="height: 420rpx;" class="border-bottom bg-hover-light animate__animated animate__fadeInUp">
+	<swiper :interval="3000" autoplay circular style="height: 420rpx;" class="border-bottom bg-hover-light animate__animated animate__fadeInUp">
 		<swiper-item class="swiper-item" v-for="(item,index) in initArr" :key="index">
 			<image :src="item.url" ></image>
 		</swiper-item>
@@ -13,6 +13,11 @@
 				type:Array,
 				required:true
 			}
+		},
+		created() {
+			this.$H.post('home/bannersList').then(res =>{
+				console.log('获取banner图数据',res);
+			})
 		}
 	}
 </script>

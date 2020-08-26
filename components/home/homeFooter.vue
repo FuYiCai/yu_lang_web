@@ -1,12 +1,11 @@
 <template>
-	<view class="py-3 px-2 footer-bg text-center">
-		<view class="flex justify-between align-center mb-2">
-			<view class="footer-item py-1 px-3 rounded"
-			v-for="item in footerText" :key="item"	>
-			{{item}}
-			</view>
+	<view class="py-3 px-2 footer-bg text-center"  style="color: rgb(195, 198, 202);">
+		<view class="flex justify-center align-center mb-2">
+			<image src="/static/images/webcode.jpg" mode="aspectFill" style="width: 258rpx;height: 258rpx;"></image>
 		</view>
-		<text space="ensp" style="color: rgb(195, 198, 202);">
+		<text>关注公众号： All软件开发</text>
+		<view @click="callNum" class="my-1">服务热线：0859-3225588</view>
+		<text space="ensp">
 			© 2020 黔B2-20080224 服务中心
 		</text>
 	</view>
@@ -16,13 +15,16 @@
 	export default {
 		data() {
 			return {
-				footerText: [
-					'加入我们',
-					'公众号',
-					'用户反馈'
-				]
+				
 			}
 		},
+		methods:{
+			callNum(){
+				uni.makePhoneCall({
+				    phoneNumber: '08593225588'
+				});
+			}
+		}
 	}
 </script>
 
