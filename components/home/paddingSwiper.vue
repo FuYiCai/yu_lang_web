@@ -1,22 +1,22 @@
 <template>
 	<swiper :interval="3000" autoplay circular style="height: 420rpx;" class="border-bottom bg-hover-light animate__animated animate__fadeInUp">
 		<swiper-item class="swiper-item" v-for="(item,index) in initArr" :key="index">
-			<image :src="item.url" ></image>
+			<image :src="item" mode="aspectFill" ></image>
 		</swiper-item>
 	</swiper>
 </template>
 
 <script>
 	export default {
-		props:{
-			initArr:{
-				type:Array,
-				required:true
+		data() {
+			return {
+				initArr: []
 			}
 		},
 		created() {
 			this.$H.post('home/bannersList').then(res =>{
 				console.log('获取banner图数据',res);
+				this.initArr = res.map(item => this.$img_url + item.path)
 			})
 		}
 	}

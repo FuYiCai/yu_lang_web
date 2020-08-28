@@ -6,18 +6,23 @@
 		<view class="flex" style="overflow-y: scroll;">
 			<image style="height: 104rpx;" class="col-3 flex-shrink" 
 			v-for="(item,index) in itemData"  :key="index"
-			:src="item" mode="aspectFill"></image>
+			:src="item.url" mode="aspectFill"></image>
 		</view>
 	</view>
 </template>
 
 <script>
+	import {swiperList} from "@/common/initData.js"
 	export default {
-		props:{
-			itemData:{
-				type:Array,
-				required:true
+		data() {
+			return {
+				itemData: swiperList
 			}
+		},
+		created() {
+		   uni.$on('update',function(data){
+				console.log('监听到事件来自 update ，携带参数 msg 为：' + data);
+			})
 		}
 	}
 </script>

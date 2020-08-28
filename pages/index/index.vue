@@ -1,10 +1,10 @@
 <template>
 	<view>
-		<my-header  :companyMsg="companyMsg" :companyWork="companyWork" />
-		<my-swiper :initArr="swiperList" />
-		<dev-case :itemData="devCase" />
-		<life-experience :itemData="devCase" />
-		<them-use :itemData="themUseDemo" />
+		<my-header />
+		<my-swiper />
+		<dev-case />
+		<life-experience />
+		<them-use />
 		<hot-line></hot-line>
 		<home-footer></home-footer>
 		<!-- 客服 -->
@@ -63,7 +63,6 @@
 	import homeFooter from '@/components/home/homeFooter.vue';
 	import hotLine from '@/components/home/hotLine.vue';
 	import uniPopup from '@/components/uni-popup/uni-popup.vue';
-	import {initCompanyWork,initCompanyMsg,swiperList,initDevCase} from '@/common/initData.js';
 	export default {
 		components:{
 			MyHeader,
@@ -83,28 +82,7 @@
 				chatMsg:[
 					{chat:'哈哈哈飞机航空寄过来咖啡店孤苦伶仃管理局了公开方式方法是微笑',id:1},
 					{chat:'寄过来咖啡店孤苦伶仃管理局了公开方式方法是微笑',id:0},
-					{chat:'哈哈哈飞机航空',id:1},
-					{chat:'哈哈哈飞机航空',id:0},
-					{chat:'哈哈哈飞机航空',id:1},
-					{chat:'哈哈哈飞机航空了寄过来咖啡店孤苦伶仃管理局了公开方式方法是微笑',id:0},
-					{chat:'哈哈哈飞机航空',id:1},
-					{chat:'哈哈哈飞机航空',id:0},
-					{chat:'哈哈哈飞机航空',id:1},
-					{chat:'哈哈哈飞机航空',id:0},
 				],
-				companyMsg:initCompanyMsg,
-				companyWork:initCompanyWork,
-				swiperList:swiperList,
-				devCase:initDevCase,
-				themUseDemo:[
-					'https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=202888534,3984400638&fm=26&gp=0.jpg',
-					'https://i.alicdn.com/__img/imgextra/i3/2024314280/O1CN018DiR0Q1hUHkRWFKHp_!!2024314280.jpg_1200x1200q75.jpg_.webp',
-					'https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=202888534,3984400638&fm=26&gp=0.jpg',
-					'https://i.alicdn.com/__img/imgextra/i3/2024314280/O1CN018DiR0Q1hUHkRWFKHp_!!2024314280.jpg_1200x1200q75.jpg_.webp',
-					'https://i.alicdn.com/__img/imgextra/i3/2024314280/O1CN018DiR0Q1hUHkRWFKHp_!!2024314280.jpg_1200x1200q75.jpg_.webp',
-					'https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=202888534,3984400638&fm=26&gp=0.jpg',
-					'https://i.alicdn.com/__img/imgextra/i3/2024314280/O1CN018DiR0Q1hUHkRWFKHp_!!2024314280.jpg_1200x1200q75.jpg_.webp',
-				]
 			}
 		},
 		onLoad() {
@@ -113,11 +91,7 @@
 				this.y = res.windowHeight - 100;
 			} catch (e) {}
 		},
-		onShow() {
-			setTimeout(()=>{
-				this.initHeaderData() ;
-			},3000)
-		},
+
 		watch:{
 			chatMsg:function(nv){
 				this.$nextTick(()=>{
@@ -126,6 +100,7 @@
 			}
 		},
 		methods: {
+			
 			 // 容器滚动到底部
 			goToBottom() {
 				const query = uni.createSelectorQuery().in(this);
@@ -139,18 +114,6 @@
 				const msg = {chat:this.textareaValue,id:0};
 				this.chatMsg.push(msg);
 				this.textareaValue = "";
-			},
-			initHeaderData(){
-				this.companyMsg = [
-					{text:'企业愿景',prop:'',child:''},{text:'发展规划',prop:'',child:''},
-					{text:'福利待遇',prop:'',child:''},{text:'团队风采',prop:'',child:''},
-					{text:'活动',prop:'',child:''},
-				] ;
-				this.companyWork = [
-					{text:'小程序',prop:'',child:[]},{text:'网站',prop:'',child:''},
-					{text:'app',prop:'',child:''},{text:'系统',prop:'',child:''},
-					{text:'其它',prop:'',child:''},
-				];
 			},
 			chat(){
 				this.$refs.popup.open() ;

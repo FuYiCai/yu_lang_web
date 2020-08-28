@@ -2,18 +2,21 @@
 	<view>
 		<view class="bg-white border-bottom animate__animated animate__fadeInDown">
 			<view class="w-100 flex justify-between align-center p-2">
-				<text v-for="item in headTitle"	 :key="item"
-				 @click="headerFn(item)" class="iconfont"> {{item}} </text>
+				<text v-for="(item,index) in treeData"	 :key="index"
+				 @click="headerFn(item,index)" class="iconfont"> 
+				 {{item.menuName}}{{item.children.length > 0 ? '\ue7a8' : ''}} </text>
 			</view>
 		</view>
 		<uni-popup ref="popup" type="top"
 		:addMaskClass="{'backgroundColor': 'transparent'}"
 		@change="popChange">
-			<view	class="flex justify-between flex-wrap w-100 p-2 bg-white " >
-				<view 	v-for="(item,index) in titleData" :key="index"
+			<view 	v-if="headerTreeObj"	
+			class="flex flex-wrap w-100  bg-white " >
+				<view	v-for="(item,index) in headerTreeObj.children" :key="index"
+				class="p-2"
 				@click="headerItemFn(item)"	>
-					<text>{{item.text}}</text>
-					<text v-show="item.child"	 class="iconfont">&#xe7a8;</text>
+					<text>{{item.menuName}}</text>
+					<text v-show="item.children.length > 0"	 class="iconfont">&#xe7a8;</text>
 				</view>
 			</view>
 		</uni-popup>
@@ -30,57 +33,51 @@
 	import uniPopup from '@/components/uni-popup/uni-popup.vue';
 	export default {
 		components:{uniPopup },
-		props:{
-			companyMsg:{
-				type:Array,
-				required:true
-			},
-			companyWork:{
-				type:Array,
-				required:true
-			}
-		},
 		data() {
 			return {
 				headTitle:[
 					'logo',
-					`${commomText.introduce} \ue7a8`,
+					`${commomText.introduce} `,
 					`${commomText.business} \ue7a8`
 				],
-				titleDataHint:'companyMsg',
+				treeData:[],
+				headTitleIndex:100,
 				isClickBusType:false,//是否点击业务类型
 			}
 		},
 		computed:{
-			titleData(){
-				const me = this;
-				const data = new Map([
-					['companyMsg',me.companyMsg],
-					['companyWork',me.companyWork],
-				]) ;
-				return data.get(me.titleDataHint) ? data.get(me.titleDataHint) : [] ;
-			}
+			headerTreeObj(){
+				if(this.headTitleIndex !== 100){
+					return this.treeData[this.headTitleIndex]
+				}
+				return null;
+			},
+			// titleData(){
+			// 	const me = this;
+			// 	const data = new Map([
+			// 		['companyMsg',me.companyMsg],
+			// 		['companyWork',me.companyWork],
+			// 	]) ;
+			// 	return data.get(me.titleDataHint) ? data.get(me.titleDataHint) : [] ;
+			// }
 		},
-		mounted() {
-			this.$H.post('home/treeselect').then(res =>{
-				console.log('获取菜单下拉树列表',res);
-			})
+		created() {
+			this.menuFn()
 		},
 		methods: {
-			headerFn(item='abc'){
-				const [text] = item.split(' ');
-				const data = new Map([
-					[`${commomText.introduce}`,'companyMsg'],
-					[`${commomText.business}`,'companyWork'],
-				]) ;
-				if(data.get(text)){
-					console.log(text,'*****');
-					text === '业务类型' ? this.isClickBusType = true :  this.isClickBusType = false;
-					
-					this.titleDataHint = data.get(text) ;
-					this.$refs.popup.open()
+			// 头部菜单
+			menuFn(){
+				this.$H.post('home/treeselect').then(res =>{
+					console.log('菜单',res);
+					this.treeData = res;
+				})
+			},
+			headerFn(item='abc',index){
+				this.headTitleIndex = index;
+				if(this.treeData[index].children.length > 0){
+					this.$refs.popup.open();
+					this.isClickBusType = this.treeData[index].menuName === '业务类型' ? true :false;
 				}
-				
 			},
 			headerItemFn(item){
 				this.$refs.popup.close()

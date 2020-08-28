@@ -2,7 +2,7 @@
 	<view>
 		<view class="py-3 px-2 d-inline-block zwyShake">报名热线</view>
 		<view  class="px-2">
-			<form @submit="formSubmit" @reset="formReset">
+			<form @submit="formSubmit" ref="formReset">
 				<view class="flex align-center py-1 mb-3 border-bottom">
 					<view class="mr-1">手机号</view>
 					<input type="number" maxlength="11" name="phone" placeholder="请输入手机号" />
@@ -60,18 +60,26 @@
 		methods: {
 			formSubmit (e) {
 				const {companyName,name,phone,site} = e.detail.value ;
-				console.log(regPhone.test(phone));
 				if(!regPhone.test(phone)){
 					return	uni.showToast({	title:'请输入正确的手机号码',icon:'none'	})
 				}
-				uni.showToast({	title:'提交中',mask:true,icon:'none'});
-				this.$H.post().then(res =>{
-					console.log(res)
+				uni.showLoading({
+					title:'提交中,请稍后',
+					mask:true
+				})
+				this.$H.post('home/addHotline',{
+					telephone:phone,
+					name,
+					companies:companyName,
+					region:site,
+				}).then(res =>{
+					uni.hideLoading();
+					uni.showToast({	title:'提交成功'})
+					this.$refs.formReset._onReset()
 				})
 			},
 			onConfirm(res){
 				this.result=res;
-				console.log(res)
 			},
 			onCancel(){
 				

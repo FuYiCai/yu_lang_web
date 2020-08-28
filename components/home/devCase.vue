@@ -1,80 +1,106 @@
 <template>
 	<view class="pb-2 border-bottom">
-		<view class="p-2 h3 animate__animated animate__backInLeft">开发案例</view>
-		<view class="flex">
-			<view class="flex-1 pl-2 animate__animated animate__backInLeft">
-				<text space="ensp" class="font-small">
-					{{itemData.text}}
-				</text>
+		<view  class="p-2 h3 animate__animated animate__backInLeft">开发案例</view>
+		<view class="flex w-100">
+			<view :style="{height: cpheight}" class="flex-1 pl-2 animate__animated animate__backInLeft">
+				<view class="textheight">
+					<text v-for="item in textArr" :key="item" class="font-small">
+						{{item}}
+					</text>
+				</view>
 			</view>
-			<image	 @click="openPop" class="flex-1 flex-shrink animate__animated animate__backInRight" :src="itemData.url" mode="aspectFit"></image>
-			<uni-popup ref="popup">
-				<view style="height: 620rpx;width: 100vw;" class="tower-swiper" @touchmove="TowerMove" @touchstart="TowerStart" @touchend="TowerEnd">
-					<view class="tower-item" :class="item.zIndex==1?'none':''" v-for="(item,index) in swiperList" :key="index" :style="[{'--index': item.zIndex,'--left':item.mLeft}]" :data-direction="direction">
-						<view class="swiper-item">
-							<image :src="item.url" mode="aspectFill" v-if="item.type=='image'"></image>
-							<video :src="item.url" autoplay loop muted :show-play-btn="false" :controls="false" objectFit="cover" v-if="item.type=='video'"></video>
-						</view>
+			<scroll-view :style="{height: cpheight}" class="flex-1" scroll-y>
+				<view class="scrollviewheight">
+					<block v-for="(item,index) in imgArr" :key="index" class="flex flex-wrap justify-between">
+						<image @click="openPop(item)" class="w48 animate__animated animate__backInRight" :src="item.url" mode="widthFix"></image>
+					</block>
+				</view>
+			</scroll-view>
+		</view>
+		<uni-popup ref="popup">
+			<view style="height: 680rpx;width: 100vw;" class="tower-swiper" @touchmove="TowerMove" @touchstart="TowerStart" @touchend="TowerEnd">
+				<view class="tower-item"
+				 
+				 :class="item.zIndex==1?'none':''" v-for="(item,index) in swiperList" :key="index" 
+				:style="[{width:towerItem,'marginLeft': `calc(${item.mLeft} * 100rpx - ${mLeft} )`,'--index': item.zIndex,'--left':item.mLeft}]" 
+				:data-direction="direction">
+					<view class="swiper-item">
+						<image :src="item.url" mode="aspectFill" v-if="item.type=='image'"></image>
+						<video :src="item.url" autoplay loop muted :show-play-btn="false" :controls="false" objectFit="cover" v-if="item.type=='video'"></video>
 					</view>
 				</view>
-			</uni-popup>
-		</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
 <script>
 	import uniPopup from '@/components/uni-popup/uni-popup.vue';
 	export default {
-		components:{uniPopup	},
-		props:{
-			itemData:{
-				type:Object,
-				required:true
-			}
-		},
+		components:{uniPopup},
 		data() {
 			return {
+				mLeft:'180rpx',// 手机16:9 ; 180rpx pc 4:3 ; 260;
+				towerItem:'349rpx', // px 510rpx ,手机349rpx
+				cpheight:'203px',//显示区域高度
+				textArr:[],
+				imgArr:[],
 				swiperList: [{
-					id: 0,
 					type: 'image',
 					url: 'http://www.mikeidea.com/public/uploads/images/20200703/1aa6d230f17f4a980dd01f856d370d13.jpg'
-				}, {
-					id: 1,
-					type: 'image',
-					url: 'http://www.mikeidea.com/public/uploads/images/20200506/a467dd1faed2c94e17d80e35cacffd91.jpg',
-				}, {
-					id: 2,
+				},
+				{
 					type: 'image',
 					url: 'http://www.mikeidea.com/public/uploads/images/20200703/1aa6d230f17f4a980dd01f856d370d13.jpg'
-				}, {
-					id: 3,
-					type: 'image',
-					url: 'http://www.mikeidea.com/public/uploads/images/20200506/a467dd1faed2c94e17d80e35cacffd91.jpg'
-				}, {
-					id: 4,
-					type: 'image',
-					url: 'http://www.mikeidea.com/public/uploads/images/20200703/1aa6d230f17f4a980dd01f856d370d13.jpg'
-				}, {
-					id: 5,
-					type: 'image',
-					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big21016.jpg'
-				}, {
-					id: 6,
-					type: 'image',
-					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
-				}],
+				}
+				],
 				towerStart: 0,
 				direction: ''
 			}
 		},
 		created() {
 			this.TowerSwiper('swiperList');
+			this.getCase()
 		},
 		methods: {
-			openPop(){
+			getNodeHeight(){
+				this.$nextTick(()=>{
+					let query = uni.createSelectorQuery().in(this);
+					query.select('.scrollviewheight').boundingClientRect();
+					query.select('.textheight').boundingClientRect();
+					query.exec(res => {
+						this.cpheight  = Math.min(res[0].height,res[1].height) + 95+'px'
+					});
+				})
+			},
+			openPop(item){
+				// this.swiperList = [item];
+				// pc端
+				if(item.identification === 101){
+					this.mLeft = '260rpx';
+					this.towerItem = '510rpx';
+				}else{
+					this.mLeft = '180rpx';
+					this.towerItem = '349rpx';
+				}
 				this.$refs.popup.open()
 			},
-			
+			// 获取开发案例数据
+			getCase(){
+				this.$H.post('home/selectByDevcases').then(res =>{
+					console.log('开发案例',res);
+					this.textArr = res.map(item => item.title)
+					this.imgArr = res.map(item => {
+						return {
+							url:this.$img_url + item.picture,
+							identification:item.identification,
+							type:'image'
+						}
+					});
+					uni.$emit('update',{imgArr:this.imgArr})
+					this.getNodeHeight()
+				})
+			},
 			// 初始化towerSwiper
 			TowerSwiper(name) {
 				let list = this[name];
@@ -133,7 +159,7 @@
 
 .tower-swiper .tower-item {
 	position: absolute;
-	width: 349rpx;
+	/* width: 349rpx; */
 	height: 680rpx;
 	top: 0;
 	bottom: 0;
@@ -156,7 +182,10 @@
 
 .tower-swiper .tower-item {
 	transform: scale(calc(0.5 + var(--index) / 10));
-	margin-left: calc(var(--left) * 100rpx - 180rpx);
+	/* margin-left: calc(var(--left) * 100rpx - var(--mleft)); */
 	z-index: var(--index);
+}
+.h3{
+	background-color: var(--xxx);
 }
 </style>
