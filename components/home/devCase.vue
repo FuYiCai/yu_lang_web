@@ -52,6 +52,10 @@
 				{
 					type: 'image',
 					url: 'http://www.mikeidea.com/public/uploads/images/20200703/1aa6d230f17f4a980dd01f856d370d13.jpg'
+				},
+				{
+					type: 'image',
+					url: 'http://www.mikeidea.com/public/uploads/images/20200703/1aa6d230f17f4a980dd01f856d370d13.jpg'
 				}
 				],
 				towerStart: 0,
@@ -59,22 +63,20 @@
 			}
 		},
 		created() {
-			this.TowerSwiper('swiperList');
 			this.getCase()
 		},
 		methods: {
 			getNodeHeight(){
-				this.$nextTick(()=>{
-					let query = uni.createSelectorQuery().in(this);
-					query.select('.scrollviewheight').boundingClientRect();
-					query.select('.textheight').boundingClientRect();
-					query.exec(res => {
-						this.cpheight  = Math.min(res[0].height,res[1].height) + 95+'px'
-					});
-				})
+				let query = uni.createSelectorQuery().in(this);
+				query.select('.scrollviewheight').boundingClientRect();
+				query.select('.textheight').boundingClientRect();
+				query.exec(res => {
+					this.cpheight  = Math.min(res[0].height,res[1].height) + 95+'px'
+				});
 			},
 			openPop(item){
-				// this.swiperList = [item];
+				// 目前后台只给一张图，不好看，copy一下
+				this.swiperList = [item,item,item];
 				// pc端
 				if(item.identification === 101){
 					this.mLeft = '260rpx';
@@ -83,6 +85,7 @@
 					this.mLeft = '180rpx';
 					this.towerItem = '349rpx';
 				}
+				this.TowerSwiper('swiperList');
 				this.$refs.popup.open()
 			},
 			// 获取开发案例数据
@@ -98,16 +101,18 @@
 						}
 					});
 					uni.$emit('update',{imgArr:this.imgArr})
-					this.getNodeHeight()
+					this.$nextTick(()=>{
+						this.getNodeHeight()
+					})
 				})
 			},
 			// 初始化towerSwiper
 			TowerSwiper(name) {
-				let list = this[name];
-				for (let i = 0; i < list.length; i++) {
-					list[i].zIndex = parseInt(list.length / 2) + 1 - Math.abs(i - parseInt(list.length / 2))
-					list[i].mLeft = i - parseInt(list.length / 2)
-				}
+				let list = JSON.parse(JSON.stringify(this[name]));
+				list.forEach((item,i) =>{
+					item.zIndex = parseInt(list.length / 2) + 1 - Math.abs(i - parseInt(list.length / 2))
+					item.mLeft = i - parseInt(list.length / 2);
+				})
 				this.swiperList = list
 			},
 			// towerSwiper计算方向

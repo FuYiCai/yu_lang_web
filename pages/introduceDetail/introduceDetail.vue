@@ -56,13 +56,20 @@
 				dotStyle: true,
 			}
 		},
-		onLoad() {
-			
+		onLoad(option) {
+			const item = JSON.parse(decodeURIComponent(option.item));
+			console.log('decocom',item);
+			this.getInitData(item.id)
 		},
 		methods: {
 			lookImg(url){
 				uni.previewImage({
 					urls:[url],
+				})
+			},
+			getInitData(id){
+				this.$H.post('home/selectByMenusId',{menuId:id}).then(res =>{
+					console.log('详情数据',res);
 				})
 			}
 		}

@@ -80,14 +80,15 @@
 				}
 			},
 			headerItemFn(item){
+				console.log(item);
 				this.$refs.popup.close()
 				if(this.isClickBusType){
 					return uni.navigateTo({
-						url:'/pages/businessType/businessType'
+						url:'/pages/businessType/businessType?item='+encodeURIComponent(JSON.stringify(item))
 					})
 				}
 				uni.navigateTo({
-					url:'/pages/introduceDetail/introduceDetail'
+					url:'/pages/introduceDetail/introduceDetail?item='+encodeURIComponent(JSON.stringify(item))
 				})
 			},
 			popChange({show}){

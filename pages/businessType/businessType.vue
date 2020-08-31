@@ -1,8 +1,11 @@
 <template>
 	<view class="wrap">
-		<view class="flex flex-wrap pl-2 pt-2">
+		<view class="p-2 text-white">
+			PC 端
+		</view>
+		<view class="flex flex-wrap justify-between p-2">
 			<block v-for="(item,index) in imgArr" :key="index">
-				<image class="w33 pr-2 mb-2 animate__animated animate__zoomIn" :src="item.url" mode="widthFix"></image>
+				<image class="w48 mb-2 animate__animated animate__zoomIn" :src="item.url" mode="widthFix"></image>
 			</block>
 		</view>
 		
@@ -42,15 +45,23 @@
 				]
 			}
 		},
+		onLoad(option) {
+			const item = JSON.parse(decodeURIComponent(option.item));
+			console.log('decocom',item);
+			this.getInitData(item.id)
+		},
 		methods: {
-			
+			getInitData(id){
+				this.$H.post('home/selectByMenusId',{menuId:id}).then(res =>{
+					console.log('详情数据',res);
+				})
+			}
 		}
 	}
 </script>
 
-<style>
-.wrap{
-	height: 100vh;
+<style scoped>
+page{
 	background-color: rgba(89,8,89,0.8);
 }
 .w33{width: 33.333%;}

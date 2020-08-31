@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="py-3 px-2 d-inline-block zwyShake">报名热线</view>
+		<view class="py-3 px-2 d-inline-block">报名热线</view>
 		<view  class="px-2">
 			<form @submit="formSubmit" ref="formReset">
 				<view class="flex align-center py-1 mb-3 border-bottom">

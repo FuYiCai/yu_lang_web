@@ -1,7 +1,7 @@
 <template>
 	<view class=""> 
-		<view class="text-center py-2 zwyBeat ">
-			<text class="zwyHover2 px-2 ">他们都在使用</text>
+		<view class="text-center py-2">
+			<text class="px-2 ">他们都在使用</text>
 		</view>
 		<view class="flex" style="overflow-y: scroll;">
 			<image style="height: 104rpx;" class="col-3 flex-shrink" 
