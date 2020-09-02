@@ -35,6 +35,7 @@
 			hotLine,
 			service
 		},
+		
 	}
 </script>
 
