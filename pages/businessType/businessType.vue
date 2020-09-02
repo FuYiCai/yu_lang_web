@@ -4,16 +4,27 @@
 			PC 端
 		</view>
 		<view class="flex flex-wrap justify-between p-2">
-			<block v-for="(item,index) in arrData" :key="index">
-				<view class="w48 flex flex-column align-start dian mb-2 bg-danger" >
-					<image class="w-100 mb-2 animate__animated animate__zoomIn" 
-					:src="$img_url + item.picture" mode="aspectFit"></image>
-					<text class="w48 d-inline-block">{{item.title}}</text>
+			<block v-for="(item,index) in pc" :key="index">
+				<view class="mb-2 animate__animated animate__zoomIn" >
+					<image style="width: 350rpx;height: 400rpx;" class="mb-2 flex-shrink" 
+					:src="$img_url + item.picture" mode="aspectFill"></image>
+					<view style="width: 330rpx;"  class="dian">{{item.title}}</view>
 				</view>
 			</block>
 		</view>
-		
-		<view class="pl-2 ">
+		<view class="p-2 text-white">
+			移动 端
+		</view>
+		<view class="flex flex-wrap justify-between p-2">
+			<block v-for="(item,index) in mobile" :key="index">
+				<view class="mb-2 animate__animated animate__zoomIn" >
+					<image style="width: 350rpx;height: 400rpx;" class="mb-2 flex-shrink" 
+					:src="$img_url + item.picture" mode="aspectFill"></image>
+					<view style="width: 330rpx;"  class="dian">{{item.title}}</view>
+				</view>
+			</block>
+		</view>
+<!-- 		<view class="pl-2 ">
 			<image class="animate__animated animate__heartBeat" src="http://www.qishangyun.net/pc/static/picture/about_title1.png"  style="height: 40rpx;width: 80%;"  mode="aspectFit"></image>
 			<view class="flex">
 				<image class="flex-1 flex-shrink  animate__animated animate__backInDown" src="http://www.qishangyun.net/pc/static/picture/about_img.png" mode="aspectFit"></image>
@@ -29,7 +40,7 @@
 					</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 	</view>
 </template>
 
@@ -40,16 +51,10 @@
 			return {
 				imgArr:[
 					{text:'',url:'http://www.qishangyun.net/pc/static/picture/case1.png'},
-					{text:'',url:'http://www.qishangyun.net/pc/static/picture/case2.png'},
-					{text:'',url:'http://www.qishangyun.net/pc/static/picture/case3.png'},
-					{text:'',url:'http://www.qishangyun.net/pc/static/picture/case4.png'},
-					{text:'',url:'http://www.qishangyun.net/pc/static/picture/case5.png'},
-					{text:'',url:'http://www.qishangyun.net/pc/static/picture/case6.png'},
-					{text:'',url:'http://www.qishangyun.net/pc/static/picture/case7.png'},
-					{text:'',url:'http://www.qishangyun.net/pc/static/picture/case8.png'},
 				],
-				constant:constant,
-				arrData:[]
+				arrData:[],
+				pc:[],
+				mobile:[]
 			}
 		},
 		onLoad(option) {
@@ -60,7 +65,10 @@
 			getInitData(id){
 				this.$H.post('home/selectByMenusIdAndDecase',{menuId:id}).then(res =>{
 					console.log('业务类型',res);
-					this.arrData = res;
+					// pc端；
+					this.pc = res.filter(item => item.identification === constant.pc)
+					// 移动端；
+					this.mobile = res.filter(item => item.identification === constant.mobile)
 				})
 			}
 		}
@@ -70,6 +78,7 @@
 <style scoped>
 page{
 	background-color: rgba(89,8,89,0.8);
+	color: #FFFFFF;
 }
 .w33{width: 33.333%;}
 .h100{height: 100rpx;}

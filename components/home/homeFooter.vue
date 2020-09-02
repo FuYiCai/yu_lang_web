@@ -1,7 +1,7 @@
 <template>
 	<view class="py-3 px-2 footer-bg text-center"  style="color: rgb(195, 198, 202);">
 		<view class="flex justify-center align-center mb-2">
-			<image @click="previewImage" :src="xxx" mode="aspectFill" style="width: 258rpx;height: 258rpx;"></image>
+			<image @click="previewImage" :src="publicImg" mode="aspectFill" style="width: 258rpx;height: 258rpx;"></image>
 		</view>
 		<text>关注公众号： All软件开发</text>
 		<view @click="callNum" class="my-1">服务热线：0859-3225588</view>
@@ -16,7 +16,7 @@
 		data() {
 			return {
 				webdata:{},
-				xxx:'/static/images/webcode.jpg'
+				publicImg:'/static/images/webcode.jpg'
 			}
 		},
 		created() {
@@ -33,7 +33,7 @@
 			},
 			previewImage(){ 
 				uni.previewImage({
-					urls: [this.xxx]
+					urls: [this.publicImg]
 				});
 			},
 			webview(){

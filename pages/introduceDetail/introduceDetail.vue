@@ -3,7 +3,7 @@
 	
 		<view style="font-size:0;">
 			<video class="w-100 animate__animated animate__slideInDown"
-			 objectFit="cover"	 :poster="dataObj.pictures[0]">
+			 objectFit="cover"	 :poster="$img_url + dataObj.pictures[0]">
 			 </video>
 			 
 			<image 

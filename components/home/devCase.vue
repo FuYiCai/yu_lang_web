@@ -49,14 +49,6 @@
 					type: 'image',
 					url: 'http://www.mikeidea.com/public/uploads/images/20200703/1aa6d230f17f4a980dd01f856d370d13.jpg'
 				},
-				{
-					type: 'image',
-					url: 'http://www.mikeidea.com/public/uploads/images/20200703/1aa6d230f17f4a980dd01f856d370d13.jpg'
-				},
-				{
-					type: 'image',
-					url: 'http://www.mikeidea.com/public/uploads/images/20200703/1aa6d230f17f4a980dd01f856d370d13.jpg'
-				}
 				],
 				towerStart: 0,
 				direction: ''
@@ -190,7 +182,5 @@
 	/* margin-left: calc(var(--left) * 100rpx - var(--mleft)); */
 	z-index: var(--index);
 }
-.h3{
-	background-color: var(--xxx);
-}
+
 </style>
