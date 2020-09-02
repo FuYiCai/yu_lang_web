@@ -18,6 +18,10 @@
             "path" : "pages/webView/webView",
             "style" : {}
         }
+        ,{
+            "path" : "pages/aboutWe/aboutWe",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

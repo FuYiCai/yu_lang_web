@@ -35,11 +35,6 @@
 			hotLine,
 			service
 		},
-		data() {
-			return {
-				
-			}
-		},
 	}
 </script>
 

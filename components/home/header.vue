@@ -74,6 +74,11 @@
 			},
 			headerFn(item='abc',index){
 				this.headTitleIndex = index;
+				if(index === 0){
+					return uni.navigateTo({
+						url:'/pages/aboutWe/aboutWe'
+					})
+				}
 				if(this.treeData[index].children.length > 0){
 					this.$refs.popup.open();
 					this.isClickBusType = this.treeData[index].menuName === '业务类型' ? true :false;

@@ -46,10 +46,14 @@ const initDevCase = {
 		让您的顾客带来更多顾客，帮您实现销量裂变式增长`,
 	url:'https://cdn2.weimob.com/saas/@assets/saas-fe-www-web-stc/img/nweb/topic/xcx/3-2@2x.png?20200426',
 }
-
+const constant = {
+	pc:101, //pc端
+	mobile:102
+}
 export {
 	initCompanyMsg,
 	initCompanyWork,
 	swiperList,
-	initDevCase
+	initDevCase,
+	constant
 }

@@ -4,8 +4,12 @@
 			PC 端
 		</view>
 		<view class="flex flex-wrap justify-between p-2">
-			<block v-for="(item,index) in imgArr" :key="index">
-				<image class="w48 mb-2 animate__animated animate__zoomIn" :src="item.url" mode="widthFix"></image>
+			<block v-for="(item,index) in arrData" :key="index">
+				<view class="w48 flex flex-column align-start dian mb-2 bg-danger" >
+					<image class="w-100 mb-2 animate__animated animate__zoomIn" 
+					:src="$img_url + item.picture" mode="aspectFit"></image>
+					<text class="w48 d-inline-block">{{item.title}}</text>
+				</view>
 			</block>
 		</view>
 		
@@ -30,6 +34,7 @@
 </template>
 
 <script>
+	import { constant } from '@/common/initData.js';
 	export default {
 		data() {
 			return {
@@ -42,18 +47,20 @@
 					{text:'',url:'http://www.qishangyun.net/pc/static/picture/case6.png'},
 					{text:'',url:'http://www.qishangyun.net/pc/static/picture/case7.png'},
 					{text:'',url:'http://www.qishangyun.net/pc/static/picture/case8.png'},
-				]
+				],
+				constant:constant,
+				arrData:[]
 			}
 		},
 		onLoad(option) {
 			const item = JSON.parse(decodeURIComponent(option.item));
-			console.log('decocom',item);
 			this.getInitData(item.id)
 		},
 		methods: {
 			getInitData(id){
-				this.$H.post('home/selectByMenusId',{menuId:id}).then(res =>{
-					console.log('详情数据',res);
+				this.$H.post('home/selectByMenusIdAndDecase',{menuId:id}).then(res =>{
+					console.log('业务类型',res);
+					this.arrData = res;
 				})
 			}
 		}
@@ -67,4 +74,10 @@ page{
 .w33{width: 33.333%;}
 .h100{height: 100rpx;}
 .retract{text-indent: 25px;white-space: pre-line;}
+.dian{
+	overflow: hidden;
+   text-overflow: ellipsis; 
+   -o-text-overflow: ellipsis;
+   white-space:nowrap;
+}
 </style>
