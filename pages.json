@@ -22,6 +22,10 @@
             "path" : "pages/aboutWe/aboutWe",
             "style" : {}
         }
+        ,{
+            "path" : "pages/cateType/cateType",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

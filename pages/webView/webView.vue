@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<web-view src="http://www.beian.gov.cn/portal/index?token=e5fac487-acc6-4a10-8bb3-9f89da1cd030"></web-view>
+		<web-view :src="url"></web-view>
 	</view>
 </template>
 
@@ -8,8 +8,11 @@
 	export default {
 		data() {
 			return {
-				
+				url:''
 			}
+		},
+		onLoad({url}) {
+			this.url = url; 
 		},
 		methods: {
 			

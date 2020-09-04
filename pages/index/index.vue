@@ -16,6 +16,7 @@
 </template>
 
 <script>
+
 	import MyHeader from '@/components/home/header.vue';
 	import mySwiper from '@/components/home/paddingSwiper.vue';
 	import devCase from '@/components/home/devCase.vue';

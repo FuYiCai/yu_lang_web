@@ -42,7 +42,6 @@
 				],
 				treeData:[],
 				headTitleIndex:100,
-				isClickBusType:false,//是否点击业务类型
 			}
 		},
 		computed:{
@@ -74,27 +73,36 @@
 			},
 			headerFn(item='abc',index){
 				this.headTitleIndex = index;
-				if(index === 0){
-					return uni.navigateTo({
-						url:'/pages/aboutWe/aboutWe'
-					})
-				}
 				if(this.treeData[index].children.length > 0){
 					this.$refs.popup.open();
-					this.isClickBusType = this.treeData[index].menuName === '业务类型' ? true :false;
 				}
 			},
 			headerItemFn(item){
-				console.log(item);
-				this.$refs.popup.close()
-				if(this.isClickBusType){
+				console.log(item.path);
+				const reg = /[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+\.?/;
+				if(reg.test(item.path)) {
 					return uni.navigateTo({
-						url:'/pages/businessType/businessType?item='+encodeURIComponent(JSON.stringify(item))
+						url:'/pages/webView/webView?url='+item.path
 					})
 				}
-				uni.navigateTo({
-					url:'/pages/introduceDetail/introduceDetail?item='+encodeURIComponent(JSON.stringify(item))
+				this.$refs.popup.close();
+				if(item.path === 'cate') {
+					return uni.navigateTo({
+						url:'/pages/cateType/cateType?cate='+item.id
+					})
+				};
+				
+				
+				if(item.path === "details") {
+					return uni.navigateTo({
+					url:'/pages/introduceDetail/introduceDetail?details='+item.id
 				})
+				
+				}
+				return uni.navigateTo({
+					url:'/pages/businessType/businessType?list='+ item.id
+				})
+				
 			},
 			popChange({show}){
 				// 重置弹层参数

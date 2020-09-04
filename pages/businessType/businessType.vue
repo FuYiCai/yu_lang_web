@@ -1,41 +1,37 @@
 <template>
-	<view class="wrap">
-		<view class="p-2 text-white">PC 端</view>
-		<case-item :caseArr="pc"></case-item>
-		<view class="p-2 text-white">移动 端</view>
-		<case-item :caseArr="mobile"></case-item>
+	<view>
+		<template v-if="caseArr">
+			<case-item :caseArr="caseArr"></case-item>
+		</template>
+		<template v-else>
+			<empty-vue></empty-vue>
+		</template>
 	</view>
 </template>
 
 <script>
 	import { constant } from '@/common/initData.js';
 	import caseItem from '@/components/home/caseItem.vue';
+	import emptyVue from '@/components/commom/emptyVue.vue';
 	export default {
 		components:{
-			caseItem
+			caseItem,
+			emptyVue
 		},
 		data() {
 			return {
-				imgArr:[
-					{text:'',url:'http://www.qishangyun.net/pc/static/picture/case1.png'},
-				],
-				arrData:[],
-				pc:[],
-				mobile:[]
+				caseArr:false
 			}
 		},
-		onLoad(option) {
-			const item = JSON.parse(decodeURIComponent(option.item));
-			this.getInitData(item.id)
+		onLoad({list}) {
+			console.log('option');
+			this.getInitData(Number(list));
 		},
 		methods: {
 			getInitData(id){
-				this.$H.post('home/selectByMenusIdAndDecase',{menuId:id}).then(res =>{
-					console.log('业务类型',res);
-					// pc端；
-					this.pc = res.filter(item => item.identification === constant.pc)
-					// 移动端；
-					this.mobile = res.filter(item => item.identification === constant.mobile)
+				this.$H.post('home/selectByMenuIdAndDevcases',{menuId:id}).then(res =>{
+					console.log('案例',res);
+					this.caseArr = res;
 				})
 			}
 		}
